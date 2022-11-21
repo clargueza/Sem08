@@ -9,17 +9,16 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.sem08.R
 import com.example.sem08.databinding.FragmentAddLugarBinding
-import com.example.sem08.databinding.FragmentHomeBinding
 import com.example.sem08.model.Lugar
 import com.example.sem08.viewmodel.HomeViewModel
 
 
 /**
  * A simple [Fragment] subclass.
- * Use the [AddLugar.newInstance] factory method to
+ * Use the [addLugarFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AddLugar : Fragment() {
+class addLugarFragment : Fragment() {
     private var _binding: FragmentAddLugarBinding? = null
     private val binding get() = _binding!!
     private lateinit var homeViewModel: HomeViewModel
@@ -32,7 +31,8 @@ class AddLugar : Fragment() {
         homeViewModel = ViewModelProvider(this).get(homeViewModel::class.java)
         _binding = FragmentAddLugarBinding.inflate(inflater, container, false)
 
-        binding.btAgregarLugar.setOnClickListener { agregarLugar()}
+        binding.btAddLugar.setOnClickListener {agregarLugar()}
+        //binding.btAgregarLugar.setOnClickListener { agregarLugar()}
 
         // Inflate the layout for this fragment
         return binding.root
