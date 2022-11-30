@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sem08.databinding.FragmentLugarFilaBinding
 import com.example.sem08.model.Lugar
 import com.example.sem08.ui.home.HomeFragmentDirections
-import com.example.sem08.ui.home.LugarFragment
-import com.example.sem08.ui.home.updateLugarFragmentDirections
+
 
 
 class LugarAdapter: RecyclerView.Adapter<LugarAdapter.LugarViewHolder>() {

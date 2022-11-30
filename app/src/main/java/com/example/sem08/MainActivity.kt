@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_principal)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
         //Inicializar
-        val initializeApp = FirebaseApp.initializeApp(this)
+        FirebaseApp.initializeApp(this)
         auth = Firebase.auth
 
         //        //Definir evento onClic  del boton Login
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }else{ // Si no se logró hubo un error
                     Log.d( "Registrándose", "Error de registro")
                     Toast.makeText(baseContext, "Falló", Toast.LENGTH_LONG).show()
-
+                    refresca(null )
                 }
             }
         Log.d( "Registrándose", "Sale del proceso")
@@ -71,25 +71,23 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("Autenticándose", "Haciendo llamado a autenticación")
         //Utilizo el objeto auth para hacer el registro
-        auth.createUserWithEmailAndPassword(email,clave)
+        auth.signInWithEmailAndPassword(email,clave)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful){ //Si se logró, se creó el usuario
                     Log.d( "Autenticando", "Se autenticó")
                     val user = auth.currentUser
-                    if (user != null) {
                         refresca(user)
-                    }
                 }else{ //Si no se logró hubo un error
                     Log.d( "Autenticando", "Error en la autenticación")
                     Toast.makeText(baseContext, "Fallo", Toast.LENGTH_LONG).show()
-
+                    refresca(null )
                 }
             }
     }
 
     private fun refresca(user: FirebaseUser?) {
         if (user != null){ //Si hay un usuario entonces paso al pantalla principal
-            val intent = Intent( this, Principal::class.java)
+            val intent = Intent( this, com.example.sem08.Principal::class.java)
             startActivity(intent)
         }
     }

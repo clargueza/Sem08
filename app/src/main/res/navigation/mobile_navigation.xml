@@ -47,7 +47,7 @@
             android:id="@+id/action_updateLugarFragment_to_nav_home"
             app:destination="@id/nav_home" />
         <argument android:name="lugar"
-            app:argType="com.dispositivosmoviles.model.Lugar"/>
+            app:argType="com.example.sem08.model.Lugar"/>
 
     </fragment>
 </navigation>

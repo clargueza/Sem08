@@ -1,5 +1,6 @@
 package com.example.sem08.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -45,6 +46,7 @@ class UpdateLugarFragment : Fragment() {
         binding.etWeb.setText(args.lugar.web)
 
         binding.btUpdateLugar.setOnClickListener { updateLugar() }
+        binding.btDeleteLugar.setOnClickListener { deleteLugar() }
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -67,5 +69,21 @@ class UpdateLugarFragment : Fragment() {
 
             findNavController().navigate(R.id.action_updateLugarFragment_to_nav_home)
         }
+    }
+
+    private fun deleteLugar() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.bt_delete_lugar))
+        builder.setMessage(getString(R.string.msg_seguro_borrado)+" ${args.lugar.nombre}?")
+        builder.setNegativeButton(getString(R.string.msg_no)) {_,_ -> }
+        builder.setPositiveButton(getString(R.string.msg_si)) {_,_ ->
+            homeViewModel.deleteLugar(args.lugar)
+            Toast.makeText(requireContext(),
+                getString(R.string.msg_lugar_deleted),
+                Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_updateLugarFragment_to_nav_home)
+        }
+
+        builder.create().show()
     }
 }
