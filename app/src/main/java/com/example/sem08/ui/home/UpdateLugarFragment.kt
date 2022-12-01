@@ -1,6 +1,7 @@
 package com.example.sem08.ui.home
 
 import android.app.AlertDialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.sem08.R
 import com.example.sem08.databinding.FragmentUpdateLugarBinding
 import com.example.sem08.model.Lugar
@@ -24,6 +26,8 @@ class UpdateLugarFragment : Fragment() {
     private var _binding: FragmentUpdateLugarBinding? = null
     private val binding get() = _binding!!
     private lateinit var homeViewModel: HomeViewModel
+
+    private lateinit var mediaPlayer: MediaPlayer
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +51,25 @@ class UpdateLugarFragment : Fragment() {
 
         binding.btUpdateLugar.setOnClickListener { updateLugar() }
         binding.btDeleteLugar.setOnClickListener { deleteLugar() }
+
+        if(args.lugar.rutaAudio?.isNotEmpty()==true){
+            mediaPlayer = MediaPlayer()
+            mediaPlayer.setDataSource(args.lugar.rutaAudio)
+            mediaPlayer.prepare()
+            binding.btPlay.isEnabled = true
+        }
+        else{
+            binding.btPlay.isEnabled = false
+        }
+
+        binding.btPlay.setOnClickListener{ mediaPlayer.start() }
+
+        if(args.lugar.rutaImagen?.isNotEmpty()==true){
+            Glide.with(requireContext())
+                .load(args.lugar.rutaImagen)
+                .into(binding.imagen)
+        }
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -63,7 +86,7 @@ class UpdateLugarFragment : Fragment() {
             Toast.makeText(requireContext(),getString(R.string.msg_data), Toast.LENGTH_LONG).show()
         }
         else{
-            val lugar = Lugar(args.lugar.id, nombre, email, web, telefono)
+            val lugar = Lugar(args.lugar.id, nombre, email, web, telefono, args.lugar.rutaAudio,args.lugar.rutaImagen)
             homeViewModel.saveLugar(lugar)
             Toast.makeText(requireContext(), getString(R.string.msg_lugar_updated), Toast.LENGTH_LONG).show()
 

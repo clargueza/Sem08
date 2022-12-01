@@ -63,14 +63,25 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.4.3'*/
 
     //Firebase database
-    implementation 'com.google.firebase:firebase-firestore-ktx:'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    //Firebase Storage
+    implementation 'com.google.firebase:firebase-storage-ktx'
+
 
     //Para navegacion entre fragmentos
     implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.5.3'
+
+    //Implementacion de github
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:glide:compiler:4.13.0'
+
     //Para gps y cámara
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'androidx.camera:camera-camera2:1.1.0'
     //Para imágenes y RecyclerView
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
+
+
 }

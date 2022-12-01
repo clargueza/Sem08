@@ -64,6 +64,13 @@ class MainActivity : AppCompatActivity() {
         Log.d( "Registrándose", "Sale del proceso")
     }
 
+    private fun refresca(user: FirebaseUser?) {
+        if (user != null){ //Si hay un usuario entonces paso al pantalla principal
+            val intent = Intent( this, com.example.sem08.Principal::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun hacerlogin() {
         //Recupero la información que el usuario escribió en el App
         var email = binding.etMail.text.toString()
@@ -85,12 +92,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun refresca(user: FirebaseUser?) {
-        if (user != null){ //Si hay un usuario entonces paso al pantalla principal
-            val intent = Intent( this, com.example.sem08.Principal::class.java)
-            startActivity(intent)
-        }
-    }
+
     //Esto ejecuta toda vez que se presenta el app en la pantalla, valida si hay un usuario autenticado
     public override fun onStart() {
         super.onStart()
